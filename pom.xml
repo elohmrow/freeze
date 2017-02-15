@@ -2,18 +2,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <artifactId>freezedev</artifactId>
-    <groupId>info.magnolia.services</groupId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>info.magnolia.maven.poms-enterprise</groupId>
+    <artifactId>magnolia-parent-pom-enterprise</artifactId>
+    <version>31</version>
   </parent>
   <groupId>info.magnolia.services</groupId>
   <artifactId>freeze</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>freeze Magnolia Module</name>
-  <!--
-  <description>Please uncomment and fill in ...</description>
-  -->
+  <description>Magnolia Services activation freeze module</description>
   <properties>
     <magnoliaVersion>5.5.1</magnoliaVersion>
     <javaVersion>1.8</javaVersion>
