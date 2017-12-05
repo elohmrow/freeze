@@ -13,7 +13,8 @@
   <name>freeze Magnolia Module</name>
   <description>Magnolia Services activation freeze module</description>
   <properties>
-    <magnoliaVersion>5.5.1</magnoliaVersion>
+    <magnoliaVersion>5.5.7</magnoliaVersion>
+    <magnoliaUiVersion>5.5.7</magnoliaUiVersion>
     <javaVersion>1.8</javaVersion>
   </properties>
 
@@ -22,6 +23,11 @@
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-core</artifactId>
       <version>${magnoliaVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>info.magnolia.ui</groupId>
+      <artifactId>magnolia-ui-api</artifactId>
+      <version>5.5.7</version>
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>
