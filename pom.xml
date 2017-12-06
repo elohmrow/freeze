@@ -8,7 +8,7 @@
   </parent>
   <groupId>info.magnolia.services</groupId>
   <artifactId>freeze</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
   <packaging>jar</packaging>
   <name>freeze Magnolia Module</name>
   <description>Magnolia Services activation freeze module</description>
