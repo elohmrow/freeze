@@ -17,7 +17,7 @@ package info.magnolia.services.setup;
 import info.magnolia.module.DefaultModuleVersionHandler;
 
 /**
- * .
+ * TBD.
  */
 public class FreezeVersionHandler extends DefaultModuleVersionHandler {
 

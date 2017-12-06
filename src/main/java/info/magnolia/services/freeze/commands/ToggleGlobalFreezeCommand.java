@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
 import javax.inject.Inject;
 
 /**
- * .
+ * TBD.
  */
 public class ToggleGlobalFreezeCommand extends MgnlCommand {
 
