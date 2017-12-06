@@ -17,8 +17,6 @@ package info.magnolia.services.freeze.commands;
 import info.magnolia.services.Freeze;
 import info.magnolia.test.MgnlTestCase;
 
-import info.magnolia.cms.exchange.ActivationManager;
-
 import org.junit.Test;
 import org.junit.Before;
 import org.junit.After;
