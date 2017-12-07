@@ -23,7 +23,7 @@
     <connection>scm:git:https://git.magnolia-cms.com/scm/services/freeze.git</connection>
     <developerConnection>scm:git:https://git.magnolia-cms.com/scm/services/freeze.git</developerConnection>
     <url>https://git.magnolia-cms.com/projects/SERVICES/repos/freeze</url>
-    <tag>freeze-1.1</tag>
+    <tag>freeze-1.2</tag>
   </scm>
 
   <dependencies>
