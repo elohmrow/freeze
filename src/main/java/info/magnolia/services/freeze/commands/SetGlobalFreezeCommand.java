@@ -33,6 +33,7 @@ public class SetGlobalFreezeCommand extends MgnlCommand {
 
     private Freeze freeze;
     private boolean freezeValue;
+    private boolean force = false;
 
     @Inject
     public SetGlobalFreezeCommand(Freeze freeze) {
@@ -45,7 +46,7 @@ public class SetGlobalFreezeCommand extends MgnlCommand {
 
         logger.debug("before: globalFreeze = {}", freeze.isGlobalFreeze());
 
-        freeze.setGlobalFreeze(freezeValue);
+        freeze.setGlobalFreeze(freezeValue, force);
 
         logger.debug("after: globalFreeze = {}", freeze.isGlobalFreeze());
 
@@ -56,4 +57,7 @@ public class SetGlobalFreezeCommand extends MgnlCommand {
         this.freezeValue = freezeValue;
     }
 
+    public void setForce(boolean force) {
+        this.force = force;
+    }
 }

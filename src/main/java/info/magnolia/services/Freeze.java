@@ -27,7 +27,7 @@ public class Freeze implements ModuleLifecycle {
 
     private static final Logger logger = LoggerFactory.getLogger(Freeze.class);
 
-    private boolean globalFreeze = false;
+    private int freezeCount = 0;
     private Object freezeSemaphore = new Object();
 
     @Override
@@ -46,32 +46,41 @@ public class Freeze implements ModuleLifecycle {
 
     public boolean isGlobalFreeze() {
         synchronized (freezeSemaphore) {
-            return globalFreeze;
+            return freezeCount > 0;
         }
     }
 
     public void setGlobalFreeze(boolean globalFreeze) {
+        setGlobalFreeze(globalFreeze, false);
+    }
+
+    public void setGlobalFreeze(boolean globalFreeze, boolean force) {
         logger.info("Setting global freeze to {}", globalFreeze);
 
-        if (this.globalFreeze == globalFreeze) {
-            logger.info("Global freeze will not be changed, currently {}", globalFreeze);
-        }
-
         synchronized (freezeSemaphore) {
-            this.globalFreeze = globalFreeze;
+            if (force) {
+                if (globalFreeze) {
+                    ++freezeCount;
+                } else {
+                    freezeCount = 0;
+                }
+            } else {
+                freezeCount += (globalFreeze) ? 1 : -1;
+            }
+
+            if (freezeCount < 0) {
+                logger.info("freezeCount is {}, this strange", freezeCount);
+                freezeCount = 0;
+            }
         }
     }
 
     public boolean toggleGlobalFreeze() {
-        logger.info("Toggling global freeze, current globa freeze = {}", globalFreeze);
+        logger.info("Toggling global freeze, current globa freeze = {}", freezeCount);
 
         synchronized (freezeSemaphore) {
-
-            globalFreeze = !globalFreeze;
-
-            logger.debug("after toggle, global freeze = {}", globalFreeze);
-
-            return globalFreeze;
+            freezeCount = (freezeCount > 0) ? 0 : 1;
+            return freezeCount > 0;
         }
     }
 

@@ -14,6 +14,8 @@
  */
 package info.magnolia.services.freeze.commands;
 
+import info.magnolia.context.Context;
+import info.magnolia.context.MgnlContext;
 import info.magnolia.services.Freeze;
 import info.magnolia.test.MgnlTestCase;
 
@@ -24,6 +26,8 @@ import org.junit.After;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 /**
@@ -32,7 +36,6 @@ import static org.junit.Assert.assertNotNull;
 public class SetGlobalFreezeCommandTest extends MgnlTestCase {
 
     private static final Logger logger = LoggerFactory.getLogger(SetGlobalFreezeCommandTest.class);
-
 
     Freeze freeze;
     SetGlobalFreezeCommand command;
@@ -65,4 +68,80 @@ public class SetGlobalFreezeCommandTest extends MgnlTestCase {
         assertNotNull("Expected a SetGlobalFreezeCommand instance", command);
         assertNotNull("Expected a Freeze instance", freeze);
     }
+
+    @Test
+    public void testSimpleFreeze() {
+        logger.debug("testSimpleFreeze called");
+
+        assertFalse("expected no freeze", freeze.isGlobalFreeze());
+
+        Context context = MgnlContext.getInstance();
+        assertNotNull("Expected a Context instance", context);
+
+        command.setFreezeValue(true);
+        boolean result = command.execute(context);
+
+        assertTrue("expected a successful execution", result);
+        assertTrue("epected a global freeze", freeze.isGlobalFreeze());
+    }
+
+    @Test
+    public void testMultiFreeze() {
+        logger.debug("testMultiFreeze called");
+
+        assertFalse("expected no freeze", freeze.isGlobalFreeze());
+
+        Context context = MgnlContext.getInstance();
+        assertNotNull("Expected a Context instance", context);
+
+        command.setFreezeValue(true);
+
+        assertTrue("expected a successful execution", command.execute(context));
+        assertTrue("epected a global freeze", freeze.isGlobalFreeze());
+
+        assertTrue("expected a successful execution", command.execute(context));
+        assertTrue("epected a global freeze", freeze.isGlobalFreeze());
+
+        assertTrue("expected a successful execution", command.execute(context));
+        assertTrue("epected a global freeze", freeze.isGlobalFreeze());
+
+        command.setFreezeValue(false);
+
+        assertTrue("expected a successful execution", command.execute(context));
+        assertTrue("epected a global freeze", freeze.isGlobalFreeze());
+
+        assertTrue("expected a successful execution", command.execute(context));
+        assertTrue("epected a global freeze", freeze.isGlobalFreeze());
+
+        assertTrue("expected a successful execution", command.execute(context));
+        assertFalse("did not expect a global freeze", freeze.isGlobalFreeze());
+    }
+
+    @Test
+    public void testForcedUnfreeze() {
+        logger.debug("testForcedUnfreeze called");
+
+        assertFalse("expected no freeze", freeze.isGlobalFreeze());
+
+        Context context = MgnlContext.getInstance();
+        assertNotNull("Expected a Context instance", context);
+
+        command.setFreezeValue(true);
+
+        assertTrue("expected a successful execution", command.execute(context));
+        assertTrue("epected a global freeze", freeze.isGlobalFreeze());
+
+        assertTrue("expected a successful execution", command.execute(context));
+        assertTrue("epected a global freeze", freeze.isGlobalFreeze());
+
+        assertTrue("expected a successful execution", command.execute(context));
+        assertTrue("epected a global freeze", freeze.isGlobalFreeze());
+
+        command.setForce(true);
+        command.setFreezeValue(false);
+
+        assertTrue("expected a successful execution", command.execute(context));
+        assertFalse("did not expect a global freeze", freeze.isGlobalFreeze());
+    }
+
 }
